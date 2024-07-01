@@ -1,0 +1,17 @@
+On utilise l'ORM sequilize
+ Tache:
+
+id
+titre
+description
+delai
+Statut(initial,en cours,Terminer dans les delais,terminer hors delai,refuser,accepter,en cours et hors delai...)
+Date de cration
+Date de mise a jour
+
+
+
+
+
+
+

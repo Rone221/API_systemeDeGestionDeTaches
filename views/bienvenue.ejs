@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="./img/logo.webp">
+
+    <link rel="stylesheet" href="./css/after.css">
+
+    <title>SysNote</title>
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+
+<body>
+    <nav
+        class="font-sans flex flex-col text-center content-center sm:flex-row sm:text-left sm:justify-between py-2 px-6 bg-white shadow sm:items-baseline w-full">
+        <div class="mb-2 sm:mb-0 flex flex-row">
+            <div class="h-10 w-10 self-center mr-2">
+                <a href="/"> <img class="h-10 w-10 self-center" src="./img/logo.webp" /></a>
+            </div>
+            <div>
+                <a href="/"
+                    class="text-2xl no-underline bg-gradient-to-r from-blue-700 to-sky-400 bg-clip-text text-transparent hover:text-blue-dark font-sans font-bold">SysNote</a><br>
+            </div>
+        </div>
+        <div class="sm:mb-0 self-center">
+            <p class="text-xl text-gray-600">Bonjour, <%= name %>!</p>
+        </div>
+    </nav>
+
+    <section>
+        <div
+            class="bg-gray-100 sm:grid grid-cols-5 grid-rows-2 px-4 py-6 min-h-full lg:min-h-screen space-y-6 sm:space-y-0 sm:gap-4">
+            <div class="h-96 col-span-4 bg-gradient-to-tr from-indigo-800 to-indigo-500 rounded-md flex items-center">
+                <div class="ml-20 w-80">
+                    <h2 class="text-white text-4xl">Yo mon pote, <%= name %>!</h2>
+                    <p class="text-indigo-100 mt-4 capitalize font-thin tracking-wider leading-7">Ravis de te revoir
+                        ici. Tu peux ajouter des tâches en utilisant le bouton ci-dessous.</p>
+                    <a href="/ajouttache"
+                        class="uppercase inline-block mt-8 text-sm bg-white py-2 px-4 rounded font-semibold hover:bg-indigo-100">Ajouter
+                        une tâche</a>
+                </div>
+            </div>
+            <div class="h-96 col-span-1">
+                <div class="bg-white py-3 px-4 rounded-lg flex justify-around items-center">
+                    <input type="text" placeholder="Rechercher"
+                        class="bg-gray-100 rounded-md outline-none pl-2 ring-indigo-700 w-full mr-2 p-2">
+                    <span><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg></span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Affichage des tâches -->
+        <div class="flex flex-wrap justify-center mt-8">
+            <% tasks.forEach(function(task) { %>
+                <div
+                    class="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md m-4 p-4 w-80">
+                    <div
+                        class="bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr from-pink-600 to-pink-400 text-white shadow-pink-500/40 shadow-lg absolute -mt-8 grid h-16 w-16 place-items-center">
+                        <i data-feather="user" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div class="p-4 pt-10">
+                        <h4
+                            class="block antialiased tracking-normal font-sans text-xl font-semibold leading-snug text-blue-gray-900 mb-2">
+                            <%= task.titre %>
+                        </h4>
+                        <p
+                            class="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600 mb-4">
+                            <%= task.description %>
+                        </p>
+                        <div class="text-sm text-blue-gray-600">
+                            <p class="flex items-center mb-2"><i data-feather="clock" class="mr-2"></i>
+                                <strong>Délai:</strong>
+                                <%= new Date(task.delai).toLocaleDateString('fr-FR') %>
+                            </p>
+                            <p class="flex items-center mb-2"><i data-feather="check-square" class="mr-2"></i>
+                                <strong>Statut:</strong>
+                                <%= task.statut %>
+                            </p>
+                            <p class="flex items-center mb-2"><i data-feather="calendar" class="mr-2"></i>
+                                <strong>Création:</strong>
+                                <%= new Date(task.date_creation).toLocaleDateString('fr-FR') %>
+                            </p>
+                            <p class="flex items-center mb-2"><i data-feather="refresh-cw" class="mr-2"></i>
+                                <strong>Mise à jour:</strong>
+                                <%= new Date(task.date_mise_a_jour).toLocaleDateString('fr-FR') %>
+                            </p>
+                        </div>
+                        <form action="/supprimer-tache/<%= task.id %>" method="POST">
+                            <button type="submit"
+                                class="mt-4 bg-red-500 text-white px-4 py-2 rounded">Supprimer</button>
+                        </form>
+                    </div>
+                </div>
+                <% }); %>
+        </div>
+    </section>
+
+    <script>
+        // Initialiser les icônes Feather
+        feather.replace();
+    </script>
+</body>
+
+</html>

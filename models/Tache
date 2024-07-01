@@ -1,0 +1,48 @@
+// models/Tache.js
+const { DataTypes } = require("sequelize");
+const sequelize = require("../controllers/connexiondb"); // Assure-toi que le chemin vers ta configuration de base de données est correct
+
+const Tache = sequelize.define("Tache", {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  titre: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  description: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
+  delai: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  statut: {
+    type: DataTypes.ENUM(
+      "initial",
+      "en_cours",
+      "terminer_dans_delais",
+      "terminer_hors_delai",
+      "refuser",
+      "accepter",
+      "en_cours_hors_delai"
+    ),
+    allowNull: false,
+    defaultValue: "initial",
+  },
+  date_creation: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW,
+  },
+  date_mise_a_jour: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW,
+  },
+});
+
+module.exports = Tache;
