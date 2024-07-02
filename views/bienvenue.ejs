@@ -7,10 +7,10 @@
     <link rel="icon" type="image/x-icon" href="./img/logo.webp">
 
     <link rel="stylesheet" href="./css/after.css">
-
     <title>SysNote</title>
     <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
+
 </head>
 
 <body>
@@ -53,9 +53,46 @@
                                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg></span>
                 </div>
+                <!-- deb -->
+
+                <div class="flex flex-wrap justify-center mt-3">
+                    <div
+                        class="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md ml-1 mt-4 mb-4 mr-1 p-4 w-80">
+                        <div
+                            class="bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr from-pink-600 to-pink-400 text-white shadow-pink-500/40 shadow-lg absolute -mt-8 grid h-16 w-16 place-items-center">
+                            <i data-feather="smile" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div class="p-4 pt-10">
+                            <h4
+                                class="block antialiased tracking-normal font-sans text-xl font-semibold leading-snug text-blue-gray-900 mb-2">
+                                Blague du jour
+                            </h4>
+                            <p class="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600 mb-4"
+                                id="joke-text">
+                                <%= joke.joke %>
+                            </p>
+                            <p
+                                class="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600 mb-4">
+                                <strong>Réponse :</strong>
+                                <span id="joke-answer">
+                                    <%= joke.answer %>
+                                </span>
+                            </p>
+                            <button onclick="getAnotherJoke()" class="mt-4 bg-indigo-500 text-white px-4 py-2 rounded">
+                                Une autre blague
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- fin -->
+
 
             </div>
+
         </div>
+
+
 
         <!-- Affichage des tâches -->
         <div class="flex flex-wrap justify-center mt-8">
@@ -104,6 +141,16 @@
     </section>
 
     <script>
+        function getAnotherJoke() {
+            fetch('/get-joke')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('joke-text').innerText = data.joke;
+                    document.getElementById('joke-answer').innerText = data.answer;
+                })
+                .catch(error => console.error('Erreur lors de la récupération de la blague:', error));
+        }
+
         // Initialiser les icônes Feather
         feather.replace();
     </script>
